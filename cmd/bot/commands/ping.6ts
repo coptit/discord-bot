@@ -1,0 +1,3 @@
+import { SlashCommandBuilder } from "discord.js";
+
+const x = new SlashCommandBuilder().setName("ping").setDescription("Replies with pong!")

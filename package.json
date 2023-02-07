@@ -1,12 +1,12 @@
 {
   "name": "coptit-bot",
-  "main": "dist/main.js",
-  "source": "cmd/bot/main.ts",
-  "version": "0.0.0",
   "description": "Discord bot for college programming club's discord server",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/main.js",
   "scripts": {
-    "watch": "parcel watch",
-    "build": "parcel build"
+    "watch": "parcel watch cmd/bot/**/*.ts",
+    "build": "parcel build cmd/bot/**/*.ts"
   },
   "author": "Kunal Singh",
   "license": "MIT",
