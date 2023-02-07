@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Events } from "discord.js"
+import { Client, GatewayIntentBits, Events, Collection } from "discord.js"
 
 /* Load bot's secret token from .env file */
 import dotenv from "dotenv"
@@ -8,16 +8,39 @@ dotenv.config()
 const BOT_TOKEN = process.env.BOT_TOKEN
 
 /*
-[CLIENT INSTANCE]
-The main client interface to interact with discord API
+Extending Client class to add a new property called commands
 */
-const client = new Client({
+class client extends Client {
+    public commands: Collection<unknown, unknown>
+}
+
+/*
+Instance of client class
+*/
+const c = new client({
     intents: [GatewayIntentBits.Guilds]
 })
 
-client.once(Events.ClientReady, (c) => {
+c.commands = new Collection()
+
+/*
+When the bot successfully connected to discord api
+*/
+c.once(Events.ClientReady, (c) => {
     console.log(`[MAIN] Bot "${c.user.tag}" is now live`)
 })
 
+/*
+Every slash command is an interaction, so to respond to a command...
+*/
+c.on(Events.InteractionCreate, (interaction) => {
+    console.log(interaction)
+})
+
+c.on(Events.ChannelCreate, (m) => {
+    console.log("hello")
+    console.log(m)
+})
+
 /* Logging in with Bot token */
-client.login(BOT_TOKEN)
+c.login(BOT_TOKEN)
