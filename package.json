@@ -1,0 +1,21 @@
+{
+  "name": "coptit-bot",
+  "main": "dist/main.js",
+  "source": "cmd/bot/main.ts",
+  "version": "0.0.0",
+  "description": "Discord bot for college programming club's discord server",
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build"
+  },
+  "author": "Kunal Singh",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.33.0",
+    "parcel": "^2.8.3"
+  }
+}
