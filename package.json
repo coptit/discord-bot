@@ -5,8 +5,8 @@
   "private": true,
   "main": "dist/main.js",
   "scripts": {
-    "watch": "parcel watch cmd/bot/**/*.ts",
-    "build": "parcel build cmd/bot/**/*.ts"
+    "build": "parcel build cmd/bot/main.ts",
+    "format": "prettier --write cmd/bot/**/*.{js,ts,json,md}"
   },
   "author": "Kunal Singh",
   "license": "MIT",
@@ -16,6 +16,12 @@
   },
   "devDependencies": {
     "eslint": "^8.33.0",
-    "parcel": "^2.8.3"
+    "events": "^3.3.0",
+    "os-browserify": "^0.3.0",
+    "parcel": "^2.8.3",
+    "path-browserify": "^1.0.1",
+    "prettier": "^2.8.3",
+    "process": "^0.11.10",
+    "typescript": "^4.9.5"
   }
 }
