@@ -2,18 +2,24 @@
 Registering Commands Script
     Done only once
 */
-import { REST, Routes } from "discord.js";
-import pingCommand from "./commands/ping";
+import { Collection, REST, Routes } from "discord.js";
+import Command from "./command";
 
 const BOT_TOKEN = process.env.BOT_TOKEN as string;
 const CLIENT_ID = process.env.CLIENT_ID as string;
 const GUILD_ID = process.env.GUILD_ID as string;
 
-const commands = [pingCommand.data.toJSON()];
+async function registerCommands(
+  commandsCollection: Collection<string, Command>
+) {
+  const commands: any[] = [];
 
-const rest = new REST({ version: "10" }).setToken(BOT_TOKEN);
+  commandsCollection.forEach((value) => {
+    commands.push(value.data.toJSON());
+  });
 
-(async () => {
+  const rest = new REST({ version: "10" }).setToken(BOT_TOKEN);
+
   try {
     console.log(
       `Started refreshing ${commands.length} application (/) commands.`
@@ -32,4 +38,6 @@ const rest = new REST({ version: "10" }).setToken(BOT_TOKEN);
   } catch (error) {
     console.log(error);
   }
-})();
+}
+
+export default registerCommands;
