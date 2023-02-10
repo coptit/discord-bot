@@ -1,6 +1,7 @@
 import { Client, Collection, GatewayIntentBits, Integration } from "discord.js";
 import Command from "./command";
-import pingCommand from "./commands/ping";
+import path from "path";
+import fs from "fs";
 
 class DiscordClient extends Client {
   public commands!: Collection<string, Command>;
@@ -23,7 +24,16 @@ function NewDiscordClient(): DiscordClient {
 
 function setCommands(): Collection<string, Command> {
   const commands = new Collection<string, Command>();
-  commands.set(pingCommand.name, pingCommand);
+
+  const commandsPath = path.join(__dirname, "commands");
+  const commandFiles = fs.readdirSync(commandsPath);
+
+  commandFiles.forEach((file) => {
+    const commandFile = path.join(commandsPath, file);
+    const command: Command = require(commandFile).default;
+    commands.set(command.name, command);
+  });
+
   return commands;
 }
 

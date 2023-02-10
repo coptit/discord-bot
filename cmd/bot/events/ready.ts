@@ -12,5 +12,4 @@ readyEvent.execute = function (client: DiscordClient) {
   console.log(`Bot "${client.user?.tag} is now live!`);
 };
 
-
-export default readyEvent
+export default readyEvent;

@@ -9,7 +9,7 @@ const BOT_TOKEN = process.env.BOT_TOKEN || "";
 const CLIENT_ID = process.env.CLIENT_ID || "";
 const GUILD_ID = process.env.GUILD_ID || "";
 
-console.log(BOT_TOKEN)
+console.log(BOT_TOKEN);
 
 const commands = [pingCommand.data.toJSON()];
 
