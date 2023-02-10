@@ -5,11 +5,9 @@ Registering Commands Script
 import { REST, Routes } from "discord.js";
 import pingCommand from "./commands/ping";
 
-const BOT_TOKEN = process.env.BOT_TOKEN || "";
-const CLIENT_ID = process.env.CLIENT_ID || "";
-const GUILD_ID = process.env.GUILD_ID || "";
-
-console.log(BOT_TOKEN);
+const BOT_TOKEN = process.env.BOT_TOKEN as string;
+const CLIENT_ID = process.env.CLIENT_ID as string;
+const GUILD_ID = process.env.GUILD_ID as string;
 
 const commands = [pingCommand.data.toJSON()];
 
