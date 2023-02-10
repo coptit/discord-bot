@@ -3,7 +3,7 @@ import Command from "./command";
 import pingCommand from "./commands/ping";
 
 class DiscordClient extends Client {
-  public commands: Collection<string, Command>;
+  public commands!: Collection<string, Command>;
 }
 
 function NewDiscordClient(): DiscordClient {
