@@ -1,24 +1,10 @@
-// import { SlashCommandBuilder } from "discord.js";
+import { CacheType, Interaction } from "discord.js";
+import Command from "../command";
 
-// /* Command Setup */
-// const command = new SlashCommandBuilder()
-//   .setName("ping")
-//   .setDescription("Replies with pong");
-
-// /* Command Executer */
-// async function execute(interaction: any) {
-//   await interaction.reply("pong!");
-// }
-
-// export { command, execute };
-
-import { SlashCommandBuilder } from "discord.js";
-
-export default {
-  data: new SlashCommandBuilder()
-    .setName("ping")
-    .setDescription("Replies with Pong!"),
-  async execute(interaction: any) {
-    await interaction.reply("Pong!");
-  },
+const pingCommand = new Command("ping", "ping to get pong");
+pingCommand.execute = async function (inter: Interaction<CacheType>) {
+  // @ts-ignore
+  await inter.reply("pong!");
 };
+
+export default pingCommand;

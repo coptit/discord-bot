@@ -1,57 +1,37 @@
-import { Client, GatewayIntentBits, Events, Collection } from "discord.js";
-import x from "./commands/ping";
-
-/* Load bot's secret token from .env file */
 import dotenv from "dotenv";
 dotenv.config();
 
-/* Bot secret login token */
+import { NewDiscordClient, DiscordClient } from "./client";
+import { Events } from "discord.js";
+
 const BOT_TOKEN = process.env.BOT_TOKEN;
+const CLIENT_ID = process.env.CLIENT_ID;
 
-/*
-Extending Client class to add a new property called commands
-*/
-class client extends Client {
-  public commands: Collection<unknown, unknown>;
-}
+const client = NewDiscordClient();
 
-/*
-Instance of client class
-Intents -> access
-*/
-const c = new client({
-  intents: [
-    GatewayIntentBits.Guilds /* Access Server Info  */,
-    GatewayIntentBits.GuildMessages /* Access Server Messages But not content */,
-    GatewayIntentBits.GuildIntegrations /* Access Server Interactions (Slash commands)  */,
-  ],
+client.once(Events.ClientReady, (c) => {
+  console.log(`[MAIN] ${c.user.tag} is now live!`);
 });
 
-c.commands = new Collection();
-c.commands.set(x.data.name, x);
+client.on(Events.InteractionCreate, async (inter) => {
+  if (!inter.isChatInputCommand()) return; // Only Input command here not interaction like messages
 
-/*
-When the bot successfully connected to discord api
-*/
-c.once(Events.ClientReady, (c) => {
-  console.log(`[MAIN] Bot "${c.user.tag}" is now live`);
+  const interClient = inter.client as DiscordClient;
+
+  const command = interClient.commands.get(inter.commandName);
+
+  if (!command) {
+    console.error(`No command matching ${inter.commandName} was found.`);
+    return;
+  }
+
+  try {
+    command.execute(inter)
+  } catch(error) {
+    console.log(error);
+    inter.reply({ content: 'There was an error while executing this command!', ephemeral: true })
+  }
+
 });
 
-/*
-On every message created
-*/
-c.on(Events.MessageCreate, (m) => {
-  console.log("-----------------MESSAGE-------------------");
-  console.log(m);
-});
-
-/*
-On every interaction created
-*/
-c.on(Events.InteractionCreate, async (e) => {
-  console.log("-------------INTERACTION-------------------");
-  console.log(e);
-});
-
-/* Logging in with Bot token */
-c.login(BOT_TOKEN);
+client.login(BOT_TOKEN);
