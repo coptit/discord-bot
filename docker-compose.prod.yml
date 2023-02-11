@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  coptit-bot:
+    build:
+      target: production
+    command: npm start

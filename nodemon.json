@@ -1,0 +1,7 @@
+{
+    "verbose": true,
+    "watch": ["src/**/*.ts"],
+    "execMap": {
+        "ts": "node -r ts-node/register"
+    }
+}

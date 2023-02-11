@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  coptit-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    volumes:
+      - ./src:/home/coptit-bot/src
+      - ./nodemon.json:/home/coptit-bot/nodemon.json
+    container_name: coptit-bot
+    env_file: .env
+    command: npm run dev
