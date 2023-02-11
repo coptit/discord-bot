@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, Interaction, CacheType } from "discord.js";
+import { SlashCommandBuilder, ChatInputCommandInteraction } from "discord.js";
 
 export default class Command {
   public name: string;
@@ -11,5 +11,5 @@ export default class Command {
       .setName(this.name)
       .setDescription(this.desc);
   }
-  public execute(inter: Interaction<CacheType>) {}
+  public execute(inter: ChatInputCommandInteraction) {}
 }

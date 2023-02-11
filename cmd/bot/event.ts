@@ -28,4 +28,5 @@ function loadEvents(client: DiscordClient) {
   });
 }
 
-export { ClientEvent, loadEvents };
+export { ClientEvent };
+export default loadEvents;

@@ -1,10 +1,12 @@
-import { CacheType, Interaction } from "discord.js";
+import { ChatInputCommandInteraction } from "discord.js";
 import Command from "../command";
 
-const pingCommand = new Command("ping", "ping to get pong");
-pingCommand.execute = async function (inter: Interaction<CacheType>) {
-  // @ts-ignore
-  await inter.reply("pong!");
+const pingCommand = new Command("ping", "Ping the bot");
+pingCommand.execute = async function (inter: ChatInputCommandInteraction) {
+  await inter.reply({
+    content: "Pong!, I'm alive!",
+    ephemeral: true,
+  });
 };
 
 export default pingCommand;
