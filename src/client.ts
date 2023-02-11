@@ -5,7 +5,7 @@ import fs from "fs";
 
 class DiscordClient extends Client {
   public commands!: Collection<string, Command>;
-  // 
+  //
 }
 
 function NewDiscordClient(): DiscordClient {
