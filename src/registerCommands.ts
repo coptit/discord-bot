@@ -7,7 +7,6 @@ import Command from "./command";
 
 const BOT_TOKEN = process.env.BOT_TOKEN as string;
 const CLIENT_ID = process.env.CLIENT_ID as string;
-const GUILD_ID = process.env.GUILD_ID as string;
 
 async function registerCommands(
   commandsCollection: Collection<string, Command>
@@ -26,10 +25,9 @@ async function registerCommands(
     );
 
     // The put method is used to fully refresh all commands in the guild with the current set
-    const data = await rest.put(
-      Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
-      { body: commands }
-    );
+    const data = await rest.put(Routes.applicationCommands(CLIENT_ID), {
+      body: commands,
+    });
 
     console.log(
       // @ts-ignore
