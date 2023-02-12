@@ -8,11 +8,11 @@ on:
 
 jobs:
   build:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Build & Push Image
+    - uses: actions/checkout@v1
+    - name: Build & Push Image
       run: |
         echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "kunalsin9h" --password-stdin
         docker image build -t kunalsin9h/coptit-bot:latest .
-        docker push kunalsin9h/coptit-bot:latest 
+        docker push kunalsin9h/coptit-bot:latest
