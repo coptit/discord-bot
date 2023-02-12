@@ -11,5 +11,4 @@ services:
       - ./nodemon.json:/coptit-bot/nodemon.json
       - ./tsconfig.json:/coptit-bot/tsconfig.json
     container_name: coptit-bot
-    env_file: .env
     command: npm run dev
