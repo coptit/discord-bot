@@ -1,5 +1,5 @@
-import Command from "../command";
 import { ChatInputCommandInteraction } from "discord.js";
+import Command from "../command";
 
 const askCommand = new Command("ask", "Ask Programming Question");
 

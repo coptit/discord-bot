@@ -11,5 +11,7 @@ export default class Command {
       .setName(this.name)
       .setDescription(this.desc);
   }
-  public execute(inter: ChatInputCommandInteraction) {}
+  public async execute(interaction: ChatInputCommandInteraction) {
+    await interaction.reply("This is a test command");
+  }
 }

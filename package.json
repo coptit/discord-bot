@@ -8,6 +8,7 @@
     "dev": "nodemon src/main.ts",
     "build": "tsc -p .",
     "start": "NODE_PATH=./build node build/main.js",
+    "lint": "eslint src/**/*.{js,ts}",
     "format": "prettier --write src/**/*.{js,ts,json,md}"
   },
   "author": "Kunal Singh",
@@ -17,9 +18,16 @@
     "dotenv": "^16.0.3"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.2",
     "typescript": "^4.9.5"
   }
 }

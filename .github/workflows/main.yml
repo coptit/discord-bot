@@ -8,8 +8,20 @@ on:
 
 jobs:
 
+  lint:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/master'
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: "19.x"
+    - run: npm ci
+    - run: npm run lint
+
   format:
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/master'
     steps:
     - uses: actions/checkout@v3
       with:
@@ -29,9 +41,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Build & Push Image
+    - name: Build the Docker image
+      run: |
+        docker image build -t kunalsin9h/coptit-bot:latest .
+    - name: Push to Docker Hub
       if: github.ref == 'refs/heads/master'
       run: |
         echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "kunalsin9h" --password-stdin
-        docker image build -t kunalsin9h/coptit-bot:latest .
         docker push kunalsin9h/coptit-bot:latest
