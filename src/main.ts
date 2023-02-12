@@ -1,5 +1,4 @@
 // To load the .env file
-
 import dotenv from "dotenv";
 dotenv.config();
 import { NewDiscordClient } from "./client";
