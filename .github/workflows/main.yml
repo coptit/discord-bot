@@ -10,6 +10,7 @@ jobs:
 
   format:
     runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/master'
     steps:
     - uses: actions/checkout@v3
       with:
@@ -27,10 +28,10 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
     steps:
     - uses: actions/checkout@v3
     - name: Build & Push Image
-      if: github.ref == 'refs/heads/master'
       run: |
         echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "kunalsin9h" --password-stdin
         docker image build -t kunalsin9h/coptit-bot:latest .
