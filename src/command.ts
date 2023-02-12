@@ -1,4 +1,4 @@
-import { SlashCommandBuilder, ChatInputCommandInteraction } from "discord.js";
+import { SlashCommandBuilder } from "discord.js";
 
 export default class Command {
   public name: string;
@@ -11,7 +11,11 @@ export default class Command {
       .setName(this.name)
       .setDescription(this.desc);
   }
-  public async execute(interaction: ChatInputCommandInteraction) {
-    await interaction.reply("This is a test command");
+  // Every command is going to replace this function
+  // ex. goto @src/commands/ping.ts
+  public execute(...args: unknown[]) {
+    throw new Error(
+      `Execute method not implemented by command (${args.length} argument given)`
+    );
   }
 }

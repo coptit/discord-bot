@@ -29,10 +29,10 @@ function setCommands(): Collection<string, Command> {
   const commandsPath = path.join(__dirname, "commands");
   const commandFiles = fs.readdirSync(commandsPath);
 
-  commandFiles.forEach((file) => {
+  commandFiles.forEach(async (file) => {
     const commandFile = path.join(commandsPath, file);
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const command: Command = require(commandFile).default;
+    let command = await import(commandFile);
+    command = command.default;
     commands.set(command.name, command);
   });
 
