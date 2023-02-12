@@ -9,7 +9,11 @@ class ClientEvent {
     this.name = name;
     this.once = once;
   }
-  public execute(v: any) {}
+  //write a function to execute the event
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public execute(..._args: unknown[]) {
+    throw new Error("Method not implemented.");
+  }
 }
 
 function loadEvents(client: DiscordClient) {
@@ -19,6 +23,7 @@ function loadEvents(client: DiscordClient) {
 
   eventsFiles.forEach((file: string) => {
     const eventFile = path.join(eventsPath, file);
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const event: ClientEvent = require(eventFile).default;
     if (event.once) {
       client.once(event.name, (agrs) => event.execute(agrs));

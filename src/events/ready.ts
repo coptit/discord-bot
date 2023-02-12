@@ -1,7 +1,3 @@
-/*
-Event -> ../event.ts
-*/
-
 import { Events } from "discord.js";
 import { DiscordClient } from "../client";
 import { ClientEvent } from "../event";

@@ -1,7 +1,7 @@
-import { Client, Collection, GatewayIntentBits, Integration } from "discord.js";
-import Command from "./command";
+import { Client, Collection, GatewayIntentBits } from "discord.js";
 import path from "path";
 import fs from "fs";
+import Command from "./command";
 
 class DiscordClient extends Client {
   public commands!: Collection<string, Command>;
@@ -31,6 +31,7 @@ function setCommands(): Collection<string, Command> {
 
   commandFiles.forEach((file) => {
     const commandFile = path.join(commandsPath, file);
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const command: Command = require(commandFile).default;
     commands.set(command.name, command);
   });
