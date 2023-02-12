@@ -7,8 +7,8 @@ services:
       dockerfile: Dockerfile
       target: base
     volumes:
-      - ./src:/home/coptit-bot/src
-      - ./nodemon.json:/home/coptit-bot/nodemon.json
+      - ./src:/coptit-bot/src
+      - ./nodemon.json:/coptit-bot/nodemon.json
+      - ./tsconfig.json:/coptit-bot/tsconfig.json
     container_name: coptit-bot
-    env_file: .env
     command: npm run dev
