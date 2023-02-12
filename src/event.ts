@@ -9,10 +9,12 @@ class ClientEvent {
     this.name = name;
     this.once = once;
   }
-  //write a function to execute the event
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  public execute(..._args: unknown[]) {
-    throw new Error("Method not implemented.");
+  // Every event is going to replace the function
+  // ex. goto @src/events/ready.ts
+  public execute(...args: unknown[]) {
+    throw new Error(
+      `Execute method not implemented by event (${args.length} arguments given)`
+    );
   }
 }
 
@@ -21,14 +23,14 @@ function loadEvents(client: DiscordClient) {
 
   const eventsFiles = fs.readdirSync(eventsPath);
 
-  eventsFiles.forEach((file: string) => {
+  eventsFiles.forEach(async (file: string) => {
     const eventFile = path.join(eventsPath, file);
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const event: ClientEvent = require(eventFile).default;
+    let event = await import(eventFile);
+    event = event.default;
     if (event.once) {
-      client.once(event.name, (agrs) => event.execute(agrs));
+      client.once(event.name, event.execute);
     } else {
-      client.on(event.name, (args) => event.execute(args));
+      client.on(event.name, event.execute);
     }
   });
 }
