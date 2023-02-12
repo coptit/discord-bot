@@ -30,6 +30,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build & Push Image
+      if: github.ref == 'refs/heads/master'
       run: |
         echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "kunalsin9h" --password-stdin
         docker image build -t kunalsin9h/coptit-bot:latest .

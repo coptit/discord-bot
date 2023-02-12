@@ -8,7 +8,7 @@
     "dev": "nodemon src/main.ts",
     "build": "tsc -p .",
     "start": "NODE_PATH=./build node build/main.js",
-    "format": "prettier --write cmd/bot/**/*.{js,ts,json,md}"
+    "format": "prettier --write src/**/*.{js,ts,json,md}"
   },
   "author": "Kunal Singh",
   "license": "MIT",
