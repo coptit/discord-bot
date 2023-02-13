@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction } from "discord.js";
-import Command from "../command";
+import Command from "@src/command";
 
 const pingCommand = new Command("ping", "Ping the bot");
 

@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { DiscordClient } from "./client";
+import { DiscordClient } from "@src/client";
 
 class ClientEvent {
   public name: string;
