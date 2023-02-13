@@ -11,8 +11,6 @@ const client = NewDiscordClient();
 
 (async () => {
   await registerCommands(client.commands);
+  loadEvents(client);
+  client.login(BOT_TOKEN);
 })();
-
-loadEvents(client);
-
-client.login(BOT_TOKEN);
