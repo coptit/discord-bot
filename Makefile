@@ -1,9 +1,9 @@
-dev-up:
+up-dev:
 	docker-compose -f docker-compose.dev.yml up -d
 
-prod-up:
+up-prod:
 	docker-compose -f docker-compose.dev.yml -f docker-compose.prod.yml \
 		up --build -d
 
-prod-build:
-	docker-compose -f docker-compose.dev.yml -f docker-compose.prod.yml build
+build:
+	docker build -t kunalsin9h/coptit-bot:latest -f Dockerfile .

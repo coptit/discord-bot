@@ -4,5 +4,4 @@ services:
   coptit-bot:
     build:
       target: production
-    image: kunalsin9h/coptit-bot
     command: npm start
