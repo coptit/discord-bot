@@ -1,6 +1,6 @@
 import { Events, ChatInputCommandInteraction } from "discord.js";
-import { DiscordClient } from "../client";
-import { ClientEvent } from "../event";
+import { DiscordClient } from "@src/client";
+import { ClientEvent } from "@src/event";
 
 const interactionEvent = new ClientEvent(Events.InteractionCreate, false);
 

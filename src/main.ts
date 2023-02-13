@@ -1,9 +1,9 @@
 // To load the .env file
 import dotenv from "dotenv";
 dotenv.config();
-import { NewDiscordClient } from "./client";
-import loadEvents from "./event";
-import registerCommands from "./registerCommands";
+import { NewDiscordClient } from "@src/client";
+import loadEvents from "@src/event";
+import registerCommands from "@src/registerCommands";
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 

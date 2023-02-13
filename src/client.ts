@@ -1,7 +1,7 @@
 import { Client, Collection, GatewayIntentBits } from "discord.js";
 import path from "path";
 import fs from "fs";
-import Command from "./command";
+import Command from "@src/command";
 
 class DiscordClient extends Client {
   public commands!: Collection<string, Command>;

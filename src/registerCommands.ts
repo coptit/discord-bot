@@ -3,7 +3,7 @@ Registering Commands Script
     Done only once
 */
 import { Collection, REST, Routes } from "discord.js";
-import Command from "./command";
+import Command from "@src/command";
 
 const BOT_TOKEN = process.env.BOT_TOKEN || "";
 const CLIENT_ID = process.env.CLIENT_ID || "";
