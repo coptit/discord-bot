@@ -1,4 +1,3 @@
-// To load the .env file
 import dotenv from "dotenv";
 dotenv.config();
 import { NewDiscordClient } from "@src/client";
@@ -7,10 +6,9 @@ import registerCommands from "@src/registerCommands";
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 
-const client = NewDiscordClient();
-
 (async () => {
+  const client = await NewDiscordClient();
   await registerCommands(client.commands);
-  loadEvents(client);
+  await loadEvents(client);
   client.login(BOT_TOKEN);
 })();
