@@ -7,3 +7,4 @@ up-prod:
 
 build:
 	docker build -t kunalsin9h/coptit-bot:latest -f Dockerfile .
+	docker build -t ghrc.io/coptit/coptit-bot:latest -f Dockerfile .
