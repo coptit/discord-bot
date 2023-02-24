@@ -52,5 +52,5 @@ jobs:
     - name: Push to Github Container Registry
       # if: github.ref == 'refs/heads/master'
       run: |
-        echo "${{ secrets.GHRC_PAT }}" | docker login ghcr.io -u "coptit" --password-stdin
+        echo "${{ secrets.GHCR }}" | docker login ghcr.io -u "coptit" --password-stdin
         docker push ghcr.io/coptit/coptit-bot:latest
