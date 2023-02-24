@@ -1,4 +1,5 @@
 FROM node:19-alpine3.17 as base
+RUN npm install -g npm@9.5.1
 
 RUN mkdir /coptit-bot
 
