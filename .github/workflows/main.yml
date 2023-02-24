@@ -50,7 +50,7 @@ jobs:
         echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "kunalsin9h" --password-stdin
         docker push kunalsin9h/coptit-bot:latest
     - name: Push to Github Container Registry
-      # if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master'
       run: |
         echo "${{ secrets.GHCR }}" | docker login ghcr.io -u "coptit" --password-stdin
         docker push ghcr.io/coptit/coptit-bot:latest
