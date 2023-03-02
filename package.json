@@ -15,7 +15,8 @@
   "license": "MIT",
   "dependencies": {
     "discord.js": "^14.7.1",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "openai": "^3.2.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.51.0",
