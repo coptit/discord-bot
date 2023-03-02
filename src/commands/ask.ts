@@ -47,7 +47,7 @@ const systemInstructions = `
   4. Unless you are asked to answer in long paragraph, you are expected to answer
   in short paragraph.
 
-  5. Always use syntax highlighting for code snippets. It is well supported by Discord.
+  5. Always use highlighting for code snippets or code block or any code related block. It is well supported by Discord.
 
   6. user markdown as mush as possible. Because it is easy to read.
 `;
