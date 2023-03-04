@@ -9,8 +9,10 @@
     "build": "tsc -p . && tsc-alias",
     "start": "NODE_PATH=./build node build/main.js",
     "lint": "eslint src/**/*.{js,ts}",
+    "lint:fix": "eslint --fix src/**/*.{js,ts}",
     "format": "prettier --write src/**/*.{js,ts,json,md}",
-    "format:check": "prettier --check src/**/*.{js,ts,json,md}"
+    "format:check": "prettier --check src/**/*.{js,ts,json,md}",
+    "prepare": "husky install"
   },
   "author": "Kunal Singh",
   "license": "MIT",
@@ -26,6 +28,7 @@
     "eslint-config-prettier": "^8.6.0",
     "eslint-import-resolver-typescript": "^3.5.3",
     "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.0",
     "nodemon": "^2.0.20",
     "prettier": "^2.8.3",
     "ts-node": "^10.9.1",
