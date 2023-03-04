@@ -4,5 +4,6 @@ COMMIT_REGEX='^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .{1,50}$'
 
 if ! grep -E "$COMMIT_REGEX" "$1"; then
   echo "Aborting commit. Your commit message is invalid."
+  echo "You have to use Conventional Commit Convensions."
   exit 1
 fi
