@@ -4,7 +4,7 @@ RED='\e[0;31m' #red color
 NC='\e[0m' # no color
 GREEN='\e[0;32m' # green
 
-COMMIT_REGEX='^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .{1,50}$'
+COMMIT_REGEX='^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .{1,90}$'
 
 if ! grep -E "$COMMIT_REGEX" "$1"; then
   echo -e "${RED}Aborting commita. Your commit message is invalid.${NC}"
