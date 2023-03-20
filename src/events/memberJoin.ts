@@ -1,6 +1,7 @@
 import { Events, GuildMember, Role, EmbedBuilder } from "discord.js";
 import { ClientEvent } from "@src/event";
 import { getChannel } from "@src/client";
+import NRLog from "@src/utils/newRelicLog";
 
 const memberJoin = new ClientEvent(Events.GuildMemberAdd, false);
 
@@ -8,15 +9,23 @@ memberJoin.execute = async function (member: GuildMember) {
   const welcomeMessageChannelId = process.env.WELCOME;
 
   if (welcomeMessageChannelId === undefined) {
-    console.log("[EVENTS/MEMBER-JOIN] missing welcome channel id");
-    process.exit(1);
+    NRLog({
+      message: "missing welcome channel id",
+      level: "ERROR",
+      meta: "@ src/events/memberJoin.ts",
+    });
+    return;
   }
 
   const channel = getChannel(welcomeMessageChannelId);
 
   if (channel === undefined) {
-    console.log("[EVENTS/MEMBER-JOIN] missing welcome channel id");
-    process.exit(1);
+    NRLog({
+      message: "Could not get channel form id",
+      level: "ERROR",
+      meta: "@ src/events/memberJoin.ts",
+    });
+    return;
   }
 
   const embedMessageToSendWhenUserJoinServer = new EmbedBuilder()
@@ -36,10 +45,12 @@ memberJoin.execute = async function (member: GuildMember) {
   );
 
   if (roleToAdd === undefined) {
-    console.log(
-      "[EVENTS/MEMBER-JOIN] missing role to add user when join server"
-    );
-    process.exit(1);
+    NRLog({
+      message: "missing role to add user when join server",
+      level: "ERROR",
+      meta: "@ src/events/memberJoin.ts",
+    });
+    return;
   }
 
   member.roles.add(roleToAdd);

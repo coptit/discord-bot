@@ -19,7 +19,6 @@ interactionEvent.execute = async (inter: ChatInputCommandInteraction) => {
   try {
     command.execute(inter);
   } catch (error) {
-    console.log(error);
     inter.reply({
       content: "There was an error while executing this command!",
       ephemeral: true,

@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction } from "discord.js";
 import { Configuration, OpenAIApi } from "openai";
 import Command from "@src/command";
+import NRLog from "@src/utils/newRelicLog";
 
 const askCommand = new Command(
   "ask",
@@ -84,7 +85,11 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
         previousMessages += message?.content;
         previousMessages += "\n";
       } catch (error) {
-        console.log(error);
+        NRLog({
+          message: "Failed to get message using message ID",
+          level: "ERROR",
+          meta: "at src/commands/ask",
+        });
       }
     }
   }
@@ -117,6 +122,11 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
     inter.editReply(answer);
   } catch (error) {
     inter.editReply("Something went wrong.");
+    NRLog({
+      message: "Could not send request to openai api",
+      level: "ERROR",
+      meta: "st src/commands/ask",
+    });
   }
 };
 

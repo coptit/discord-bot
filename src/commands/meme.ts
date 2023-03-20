@@ -1,5 +1,6 @@
 import { ChatInputCommandInteraction, AttachmentBuilder } from "discord.js";
 import Command from "@src/command";
+import NRLog from "@src/utils/newRelicLog";
 
 // url: https://github.com/D3vd/Meme_Api
 type MemeApiResponse = {
@@ -22,17 +23,25 @@ const memeCommand = new Command("meme", "Get a programming meme from reddit");
 memeCommand.execute = async function (inter: ChatInputCommandInteraction) {
   await inter.deferReply();
 
-  const resRaw = await fetch(memeApiURL);
-  const data: MemeApiResponse = await resRaw.json();
+  try {
+    const resRaw = await fetch(memeApiURL);
+    const data: MemeApiResponse = await resRaw.json();
+    const responseImage = new AttachmentBuilder(data.preview.at(-1) as string, {
+      name: "meme.png",
+    });
 
-  const responseImage = new AttachmentBuilder(data.preview.at(-1) as string, {
-    name: "meme.png",
-  });
-
-  await inter.editReply({
-    content: data.title,
-    files: [responseImage],
-  });
+    await inter.editReply({
+      content: data.title,
+      files: [responseImage],
+    });
+  } catch (error) {
+    inter.editReply("Something wend wrong");
+    NRLog({
+      message: "Failed to fetch meme",
+      level: "ERROR",
+      meta: "at src/commands/meme",
+    });
+  }
 };
 
 export default memeCommand;
