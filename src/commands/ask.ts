@@ -14,6 +14,15 @@ askCommand.data.addStringOption((option) =>
     .setDescription("Prompt (Query / Question) you want to ask!")
 );
 
+askCommand.data.addStringOption((option) =>
+  option
+    .setName("message_ids")
+    .setRequired(false)
+    .setDescription(
+      "All the previous message ids separated by , to uses as a context in this prompt"
+    )
+);
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -57,26 +66,58 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
 
   const question = inter.options.getString("question", true);
 
-  const res = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [
-      { role: "system", content: systemInstructions },
-      { role: "user", content: question },
-    ],
-  });
+  const previousMessageIDsString = inter.options.getString(
+    "message_ids",
+    false
+  );
 
-  const resData = res.data;
-  let answerData = resData.choices[0].message?.content;
+  let previousMessages = "";
 
-  if (answerData === undefined) {
-    inter.editReply("Application does not respond. Something went wrong!");
-    return;
+  if (previousMessageIDsString != null) {
+    const allMessagesIDs = previousMessageIDsString.split(",");
+    for (const messageID of allMessagesIDs) {
+      if (messageID.length == 0) {
+        continue;
+      }
+      try {
+        const message = await inter.channel?.messages.fetch(messageID);
+        previousMessages += message?.content;
+        previousMessages += "\n";
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
-  answerData = answerData.trim();
+  try {
+    const res = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: systemInstructions },
+        {
+          role: "user",
+          content:
+            previousMessages +
+            "\n Use the above message as context, answer the following question:\n" +
+            question,
+        },
+      ],
+    });
+    const resData = res.data;
+    let answerData = resData.choices[0].message?.content;
 
-  const answer = `<@${inter.member?.user.id}>: **${question}**\n\n**AI**:  ${answerData}`;
-  inter.editReply(answer);
+    if (answerData === undefined) {
+      inter.editReply("Application does not respond. Something went wrong!");
+      return;
+    }
+
+    answerData = answerData.trim();
+
+    const answer = `<@${inter.member?.user.id}>: **${question}**\n\n**AI**:  ${answerData}`;
+    inter.editReply(answer);
+  } catch (error) {
+    inter.editReply("Something went wrong.");
+  }
 };
 
 export default askCommand;
