@@ -73,17 +73,27 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
   );
 
   let previousMessages = "";
+  let showingLastPreviousMessage = "";
+
+  console.log(previousMessageIDsString);
 
   if (previousMessageIDsString != null) {
     const allMessagesIDs = previousMessageIDsString.split(",");
+    console.log(allMessagesIDs);
     for (const messageID of allMessagesIDs) {
-      if (messageID.length == 0) {
-        continue;
-      }
       try {
         const message = await inter.channel?.messages.fetch(messageID);
         previousMessages += message?.content;
-        previousMessages += ". ";
+        previousMessages += " ";
+
+        if (message?.content != undefined) {
+          showingLastPreviousMessage = "prev: ";
+          showingLastPreviousMessage += message.content
+            .slice(0, 80)
+            .replaceAll("\n", "")
+            .replaceAll("**AI**:", "=");
+          showingLastPreviousMessage += "...\n\n";
+        }
       } catch (error) {
         NRLog({
           message: "Failed to get message using message ID",
@@ -92,9 +102,13 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
         });
       }
     }
-    previousMessages +=
-      " .Use the above message as context, answer the following question: ";
+    if (previousMessages != "") {
+      previousMessages +=
+        ". Use the above message as context, answer the following question: \n";
+    }
   }
+
+  console.log(previousMessages);
 
   try {
     const res = await openai.createChatCompletion({
@@ -117,7 +131,7 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
 
     answerData = answerData.trim();
 
-    const answer = `<@${inter.member?.user.id}>: **${question}**\n\n**AI**:  ${answerData}`;
+    const answer = `${showingLastPreviousMessage}<@${inter.member?.user.id}>: **${question}**\n\n**AI**:  ${answerData}`;
     inter.editReply(answer);
   } catch (error) {
     inter.editReply("Something went wrong.");
