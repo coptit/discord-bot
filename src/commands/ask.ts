@@ -105,6 +105,8 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
     if (previousMessages != "") {
       previousMessages +=
         ". Use the above message as context, answer the following question: \n";
+    } else {
+      showingLastPreviousMessage = "";
     }
   }
 
