@@ -83,7 +83,7 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
       try {
         const message = await inter.channel?.messages.fetch(messageID);
         previousMessages += message?.content;
-        previousMessages += "\n";
+        previousMessages += ". ";
       } catch (error) {
         NRLog({
           message: "Failed to get message using message ID",
@@ -92,6 +92,8 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
         });
       }
     }
+    previousMessages +=
+      " .Use the above message as context, answer the following question: ";
   }
 
   try {
@@ -101,10 +103,7 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
         { role: "system", content: systemInstructions },
         {
           role: "user",
-          content:
-            previousMessages +
-            "\n Use the above message as context, answer the following question:\n" +
-            question,
+          content: previousMessages + question,
         },
       ],
     });
