@@ -36,7 +36,7 @@ memeCommand.execute = async function (inter: ChatInputCommandInteraction) {
     });
   } catch (error) {
     inter.editReply("Something wend wrong");
-    NRLog({
+    await NRLog({
       message: "Failed to fetch meme",
       level: "ERROR",
       meta: "at src/commands/meme",

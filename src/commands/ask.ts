@@ -75,8 +75,6 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
   let previousMessages = "";
   let showingLastPreviousMessage = "";
 
-  console.log(previousMessageIDsString);
-
   if (previousMessageIDsString != null) {
     const allMessagesIDs = previousMessageIDsString.split(",");
     console.log(allMessagesIDs);
@@ -110,8 +108,6 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
     }
   }
 
-  console.log(previousMessages);
-
   try {
     const res = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
@@ -137,7 +133,7 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
     inter.editReply(answer);
   } catch (error) {
     inter.editReply("Something went wrong.");
-    NRLog({
+    await NRLog({
       message: "Could not send request to openai api",
       level: "ERROR",
       meta: "st src/commands/ask",
