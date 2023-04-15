@@ -4,3 +4,4 @@ dist
 build
 .parcel-cache
 .vim
+database/

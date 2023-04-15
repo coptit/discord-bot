@@ -50,7 +50,6 @@ async function deleteAllCommands() {
       await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
         body: [],
       });
-      console.log("Done");
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +58,6 @@ async function deleteAllCommands() {
   try {
     console.log("Deleting all global slash commands");
     await rest.put(Routes.applicationCommands(CLIENT_ID), { body: [] });
-    console.log("Done");
   } catch (error) {
     console.log(error);
   }
