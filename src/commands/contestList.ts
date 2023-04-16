@@ -1,7 +1,8 @@
-import { ChatInputCommandInteraction } from "discord.js";
+import { ChatInputCommandInteraction, EmbedBuilder } from "discord.js";
 import Command from "@src/command";
 import type { CodeForcesResponse, Contest } from "@src/codeforces/types";
 import NRLog from "@src/utils/newRelicLog";
+import { embedPaginator } from "@src/utils/embedPagination";
 
 const contestListCommand = new Command(
   "contests",
@@ -35,9 +36,31 @@ contestListCommand.execute = async function (
         upcomingContests.push(contest);
       }
     }
-    inter.editReply({
-      content: JSON.stringify(upcomingContests),
-    });
+
+    upcomingContests.reverse();
+
+    const embeds: EmbedBuilder[] = [];
+
+    for (let i = 0, j = upcomingContests.length; i < j; ) {
+      let answer = "<:codeforces:994197511705202749> **Upcoming Contests**\n";
+
+      for (let k = 0, x = j - i; k < Math.min(3, x); k++, i++) {
+        const startDate = new Date(upcomingContests[i].startTimeSeconds * 1000);
+
+        answer += `
+          ${upcomingContests[i].id}  **${
+          upcomingContests[i].name
+        }**\n **Starts:**: ${startDate.toDateString()} ${startDate.toLocaleTimeString()}`;
+
+        if (i != j - 1) {
+          answer += "\n\n";
+        }
+      }
+      const embed = new EmbedBuilder().setDescription(answer);
+      embeds.push(embed);
+    }
+
+    new embedPaginator(inter, embeds);
   } catch (error) {
     await NRLog({
       message: "Failed to request CodeForces API",

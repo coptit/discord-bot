@@ -32,11 +32,9 @@ export class embedPaginator {
   }
 
   async init(interaction: Exclude<Interaction, AutocompleteInteraction>) {
-    const message = await interaction.reply({
-      ephemeral: this.ephemeral,
+    const message = await interaction.editReply({
       embeds: [this.handler.value],
       components: this.components(),
-      fetchReply: true,
     });
 
     const collector = message.createMessageComponentCollector({
@@ -45,13 +43,13 @@ export class embedPaginator {
       dispose: true,
     });
 
-    collector.on("collect", (interaktion) => {
-      if (!this.filter(interaktion)) {
-        interaktion.reply({ ephemeral: true, content: "Request Denied!" });
+    collector.on("collect", (interaction) => {
+      if (!this.filter(interaction)) {
+        interaction.reply({ ephemeral: true, content: "Request Denied!" });
         return;
       }
 
-      switch (interaktion.customId) {
+      switch (interaction.customId) {
         case "left":
           this.page--;
           break;
@@ -59,13 +57,13 @@ export class embedPaginator {
           this.page++;
           break;
         case "page":
-          this.goto(interaktion);
+          this.goto(interaction);
           break;
         case "delete":
           interaction.deleteReply().catch(console.log);
           return;
       }
-      interaktion.update(this.value).catch(() => undefined);
+      interaction.update(this.value).catch(() => undefined);
     });
 
     // disable components when idle
