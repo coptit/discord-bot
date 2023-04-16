@@ -1,11 +1,11 @@
-import { Events, ChatInputCommandInteraction } from "discord.js";
+import { Events, Interaction } from "discord.js";
 import { DiscordClient } from "@src/client";
 import { ClientEvent } from "@src/event";
 
 const interactionEvent = new ClientEvent(Events.InteractionCreate, false);
 
-interactionEvent.execute = async (inter: ChatInputCommandInteraction) => {
-  if (!inter.isChatInputCommand) return;
+interactionEvent.execute = async (inter: Interaction) => {
+  if (!inter.isChatInputCommand()) return;
 
   const interClient = inter.client as DiscordClient;
 
