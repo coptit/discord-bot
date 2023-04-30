@@ -43,13 +43,13 @@ export class embedPaginator {
       dispose: true,
     });
 
-    collector.on("collect", (interaction) => {
-      if (!this.filter(interaction)) {
-        interaction.reply({ ephemeral: true, content: "Request Denied!" });
+    collector.on("collect", (inter) => {
+      if (!this.filter(inter)) {
+        inter.reply({ ephemeral: true, content: "Request Denied!" });
         return;
       }
 
-      switch (interaction.customId) {
+      switch (inter.customId) {
         case "left":
           this.page--;
           break;
@@ -57,13 +57,13 @@ export class embedPaginator {
           this.page++;
           break;
         case "page":
-          this.goto(interaction);
+          this.goto(inter);
           break;
         case "delete":
           interaction.deleteReply().catch(console.log);
           return;
       }
-      interaction.update(this.value).catch(() => undefined);
+      inter.update(this.value).catch(() => undefined);
     });
 
     // disable components when idle
