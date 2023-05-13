@@ -77,7 +77,6 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
 
   if (previousMessageIDsString != null) {
     const allMessagesIDs = previousMessageIDsString.split(",");
-    console.log(allMessagesIDs);
     for (const messageID of allMessagesIDs) {
       try {
         const message = await inter.channel?.messages.fetch(messageID);
@@ -89,7 +88,7 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
           showingLastPreviousMessage += message.content
             .slice(0, 80)
             .replaceAll("\n", "")
-            .replaceAll("**AI**:", "=");
+            .replaceAll("**AI**:", " = ");
           showingLastPreviousMessage += "...\n\n";
         }
       } catch (error) {
@@ -129,7 +128,7 @@ askCommand.execute = async function (inter: ChatInputCommandInteraction) {
 
     answerData = answerData.trim();
 
-    const answer = `${showingLastPreviousMessage}<@${inter.member?.user.id}>: **${question}**\n\n**AI**:  ${answerData}`;
+    const answer = `${showingLastPreviousMessage}<@${inter.member?.user.id}>: **${question}**\n\n **AI**:  ${answerData}`;
     inter.editReply(answer);
   } catch (error) {
     inter.editReply("Something went wrong.");
