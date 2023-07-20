@@ -42,7 +42,7 @@ contestListCommand.execute = async function (
     const embeds: EmbedBuilder[] = [];
 
     for (let i = 0, j = upcomingContests.length; i < j; ) {
-      let answer = "<:codeforces:994197511705202749> **Upcoming Contests**\n";
+      let answer = "<:codeforces:1110116911859105842> **Upcoming Contests**\n";
 
       for (let k = 0, x = j - i; k < Math.min(3, x); k++, i++) {
         const startDate = new Date(upcomingContests[i].startTimeSeconds * 1000);
