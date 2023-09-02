@@ -15,8 +15,7 @@ type MemeApiResponse = {
   preview: string[];
 };
 
-const memeApiURL =
-  process.env.MEME_API_URL || "https://meme-api.com/gimme/ProgrammerHumor";
+const memeApiURL = "https://meme-api.com/gimme/ProgrammerHumor";
 
 const memeCommand = new Command("meme", "Get a programming meme from reddit");
 

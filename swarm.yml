@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  coptit_bot:
+    image: ghcr.io/coptit/coptit-bot:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      BOT_TOKEN: ""
+      CLIENT_ID: ""
+      WELCOME: ""
+      OPENAI_API_KEY: ""
+      NR_API_URL: ""
+      NR_LICENSE_KEY: ""
