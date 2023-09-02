@@ -50,9 +50,12 @@ contestListCommand.execute = async function (
         answer += `
           ${upcomingContests[i].id}  **${
           upcomingContests[i].name
-        }**\n **Starts:**: ${startDate.toDateString()} ${startDate.toLocaleTimeString('en-US', {
-          timeZone: 'Asia/Calcutta'
-        })}`;
+        }**\n **Starts:**: ${startDate.toDateString()} ${startDate.toLocaleTimeString(
+          "en-US",
+          {
+            timeZone: "Asia/Calcutta",
+          }
+        )}`;
 
         if (i != j - 1) {
           answer += "\n\n";
