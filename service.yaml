@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  coptit_bot:
+    image: ghcr.io/coptit/coptit-bot:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+    env_file:
+      - ~/secrets/coptit
